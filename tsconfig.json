@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    // Parcel processes each file individually:
+    "isolatedModules": true
+  }
+}

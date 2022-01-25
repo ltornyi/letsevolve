@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     // Parcel processes each file individually:
-    "isolatedModules": true
+    "isolatedModules": true,
+    "target": "ES6"
   }
 }

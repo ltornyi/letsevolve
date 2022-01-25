@@ -1,3 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
 #root {
   border: 1px solid red;
+  width: 100%;
+}
+
+#gamearea {
+  width: 70%;
+}
+
+#gamearea > canvas {
+  object-fit: contain;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+#controls {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 1em;
+  width: 30%;
 }

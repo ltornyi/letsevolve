@@ -1,7 +1,7 @@
 import { Simulation } from "./simulation/Simulation";
 import { SimulationState } from "./simulation/SimulationState";
 import { Observer } from "./observable/BehaviourSubject";
-import { DOM } from "./utils";
+import { DOM } from "./utils/Dom";
 
 const simStateObserver: Observer<SimulationState> = {
   next: (simState) => {
@@ -15,6 +15,8 @@ const init = async () => {
   const sim = new Simulation(DOM.getGameCanvas());
   sim.state$.subscribe(simStateObserver);
   sim.draw();
+
+  window['mysim'] = sim;
 
   DOM.getStartButton().onclick = () => sim.start();
   DOM.getStopButton().onclick = () => sim.stop();

@@ -22,10 +22,26 @@ export class Graphics {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
+  rawDot(x: number, y: number, color: string) {
+    this.ctx.fillStyle = color;
+    this.ctx.fillRect(x, y, 2, 2);
+  }
+
   dot(x: number, y: number, color: string) {
     const xy = this.calcXY(x, y);
+    this.rawDot(xy.x, xy.y, color);
+  }
+
+  rawCircle(x: number, y: number, r: number, color: string) {
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, r, 0, 2*Math.PI);
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(xy.x, xy.y, 2, 2);
+    this.ctx.fill();
+  }
+
+  circle(x: number, y: number, r: number, color: string) {
+    const xy = this.calcXY(x, y);
+    this.rawCircle(xy.x, xy.y, r, color);
   }
 
   resizeCanvasToDisplaySize(multiplier?: number) {

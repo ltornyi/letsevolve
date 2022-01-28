@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "parcel src/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "parcel build src/index.html"
   },
   "keywords": [],
@@ -14,6 +14,7 @@
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "jest": "^27.4.7",
-    "parcel": "^2.2.1"
+    "parcel": "^2.2.1",
+    "ts-jest": "^27.1.3"
   }
 }

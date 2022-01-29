@@ -25,6 +25,7 @@ export class Geom {
     return norm
   }
 
+  //in [-PI, PI]
   static heading(start: Point, end: Point) {
     let result = 0;
     const deltaX = end.x - start.x;

@@ -11,7 +11,8 @@ export class World {
     h: 1000
   };
   foodProbability = 1;
-  foodEnergyValue = 1000;
+  foodEnergyValue = 500;
+  peaceful = true;
 
   food: Food[] = [];
   creatures: Creature[] = [];
@@ -64,5 +65,11 @@ export class World {
     this.creatures.forEach(cr => cr.iterate(this, ticks));
     this.creatures.forEach(cr => cr.move(this, ticks));
     this.creatures = this.creatures.filter(c => c.currentEnergy > 0);
+    this.creatures.forEach(cr => {
+      const child = cr.reproduce(this);
+      if (child) {
+        this.addCreature(child);
+      }
+    });
   }
 }

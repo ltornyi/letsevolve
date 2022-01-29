@@ -11,6 +11,21 @@ export class Graphics {
     this.maxY = maxY;
   }
 
+  getCursorPosition(event: MouseEvent) {
+    const rect = this.canvas.getBoundingClientRect()
+    return {
+      x: Math.abs(event.clientX - rect.left),
+      y: Math.abs(event.clientY - rect.top),
+    }
+  }
+
+  calcWorldXY(x: number, y: number) {
+    return {
+      x: x / this.canvas.width * this.maxX,
+      y: y / this.canvas.height * this.maxY,
+    }
+  }
+
   calcXY(x: number, y: number) {
     return {
       x: x / this.maxX * this.canvas.width,
@@ -32,16 +47,21 @@ export class Graphics {
     this.rawDot(xy.x, xy.y, color);
   }
 
-  rawCircle(x: number, y: number, r: number, color: string) {
+  rawCircle(x: number, y: number, r: number, color: string, stroke: string) {
     this.ctx.beginPath();
     this.ctx.arc(x, y, r, 0, 2*Math.PI);
     this.ctx.fillStyle = color;
     this.ctx.fill();
+    if (stroke) {
+      this.ctx.strokeStyle = stroke;
+      this.ctx.lineWidth = 1;
+      this.ctx.stroke();
+    }
   }
 
-  circle(x: number, y: number, r: number, color: string) {
+  circle(x: number, y: number, r: number, color: string, stroke: string) {
     const xy = this.calcXY(x, y);
-    this.rawCircle(xy.x, xy.y, r, color);
+    this.rawCircle(xy.x, xy.y, r, color, stroke);
   }
 
   resizeCanvasToDisplaySize(multiplier?: number) {

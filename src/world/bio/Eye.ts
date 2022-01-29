@@ -13,15 +13,19 @@ export type Vision = {
 export class Eye {
   private owner: Creature;
   private relativeDirection: number;
-  private genes: EyeGenes;
+  private _genes: EyeGenes;
   private viewArea: number;
 
   constructor(owner: Creature, relativeDirection: number, genes: EyeGenes) {
     this.owner = owner;
     this.relativeDirection = relativeDirection;
-    this.genes = genes;
+    this._genes = genes;
     this.viewArea = Math.PI * genes.viewDistance * genes.viewDistance * (genes.viewAngle / (2 * Math.PI));
     this.owner.addEye(this);
+  }
+
+  get genes() {
+    return this._genes;
   }
 
   energyUsed(ticks: number) {

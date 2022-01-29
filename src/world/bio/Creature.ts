@@ -6,7 +6,7 @@ import { Food } from "../Food";
 
 export const NUMBER_OF_EYES = 4;
 export const MOVEMENT_ENERGY_FACTOR = 1.0 / 1_000;
-export const VISION_ENERGY_FACTOR = 1.0 / 1_000;
+export const VISION_ENERGY_FACTOR = 1.0 / 5_000;
 export const MAX_SPEED = 20;
 export const MAX_ENERGY = 10e10;
 export const REACH_FACTOR = 3;
@@ -80,8 +80,12 @@ export class Creature {
     this._brain = b;
   }
 
+  reach() {
+    return REACH_FACTOR * this.size;
+  }
+
   eat(w: World) {
-    const reach = REACH_FACTOR * this.size;
+    const reach = this.reach();
     const reach2 = reach * reach;
     //quick filtering to reduce calculation effort
     w.food.filter(food => 
@@ -246,10 +250,12 @@ export class Creature {
     const newSize = Math.random() < 0.1 ? this.size * (Math.random()/2 + 0.75) : this.size;
     const newCr = new Creature(this.x, this.y, heading, this.currentSpeed, energyGiven, newSize);
 
-    const newEyeGenes = this._eyes[0].genes;
-    newEyeGenes.viewAngle = Math.random() < 0.1 ? newEyeGenes.viewAngle * (Math.random()/2 + 0.75) : newEyeGenes.viewAngle;
-    newEyeGenes.viewDistance = Math.random() < 0.1 ? newEyeGenes.viewDistance * (Math.random()/2 + 0.75) : newEyeGenes.viewDistance;
-    new Eye(newCr, 0, newEyeGenes);
+    this._eyes.forEach(e => {
+      const newEyeGenes = e.genes;
+      newEyeGenes.viewAngle = Math.random() < 0.1 ? newEyeGenes.viewAngle * (Math.random()/2 + 0.75) : newEyeGenes.viewAngle;
+      newEyeGenes.viewDistance = Math.random() < 0.1 ? newEyeGenes.viewDistance * (Math.random()/2 + 0.75) : newEyeGenes.viewDistance;
+      new Eye(newCr, e.relativeDirection, newEyeGenes);
+    })
 
     newCr.brain = this.brain.mutate();
     return newCr;

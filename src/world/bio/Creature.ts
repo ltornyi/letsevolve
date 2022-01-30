@@ -39,15 +39,11 @@ export class Creature {
     const heading = (Math.random() * 2 - 1) * Math.PI;
     const speed = 2;
     const size = 1;
-    const cr = new Creature(x, y, heading, speed, 0, size);
+    const cr = new Creature(x, y, heading, speed, 10 * w.foodEnergyValue, size);
     new Eye(cr, 0, {viewAngle: Math.PI/10, viewDistance: 1});
     new Eye(cr, Math.PI / 2, {viewAngle: Math.PI/10, viewDistance: 1});
     new Eye(cr, Math.PI, {viewAngle: Math.PI/10, viewDistance: 1});
     new Eye(cr, -Math.PI / 2, {viewAngle: Math.PI/10, viewDistance: 1});
-    //starting with energy enough for 1000 steps
-    // let energy = 1_000 * (MOVEMENT_ENERGY_FACTOR * Math.pow(speed, 2) * Math.pow(size, 3));
-    // energy += 1_000 * VISION_ENERGY_FACTOR * eye.energyUsed(1)
-    cr._currentEnergy = 10 * w.foodEnergyValue;
     cr.generateBrain();
     return cr;
   }

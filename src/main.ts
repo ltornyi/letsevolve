@@ -5,19 +5,15 @@ import { DOM } from "./utils/Dom";
 import { World } from "./world/World";
 import { Geom } from "./utils/Geom";
 
-const simStateObserver: Observer<SimulationState> = {
-  next: (simState) => {
-    DOM.getStartButton().disabled = simState.running;
-    DOM.getStopButton().disabled = !simState.running;
-    DOM.getUpdGraphicsChk().checked = simState.updateGraphics;
-  }
+const simStateObserver: Observer<SimulationState> = (simState) => {
+  DOM.getStartButton().disabled = simState.running;
+  DOM.getStopButton().disabled = !simState.running;
+  DOM.getUpdGraphicsChk().checked = simState.updateGraphics;
 }
 
-const worldObserver: Observer<World> = {
-  next: (world) => {
-    DOM.getFoodStatElem().innerHTML = world.food.length.toString();
-    DOM.getCreaturesStatElem().innerHTML = world.creatures.length.toString();
-  }
+const worldObserver: Observer<World> = (world) => {
+  DOM.getFoodStatElem().innerHTML = world.food.length.toString();
+  DOM.getCreaturesStatElem().innerHTML = world.creatures.length.toString();
 }
 
 const canvasClick = (ev: MouseEvent, sim: Simulation) => {

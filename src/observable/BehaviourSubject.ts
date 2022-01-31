@@ -1,6 +1,4 @@
-export type Observer<T> = {
-  next: (data: T) => void
-}
+export type Observer<T> = (data: T) => void
 
 export class BehaviorSubject<T> {
   private observers: Observer<T>[] = [];
@@ -12,7 +10,7 @@ export class BehaviorSubject<T> {
 
   subscribe(observer: Observer<T>) {
     this.observers.push(observer);
-    observer.next(this.data);
+    observer(this.data);
   }
 
   unsubscribe(observer: Observer<T>) {
@@ -25,7 +23,7 @@ export class BehaviorSubject<T> {
 
   next(data: T) {
     this.data = data;
-    this.observers.forEach(observer => observer.next(data))
+    this.observers.forEach(observer => observer(data))
   }
 
   get value() {
